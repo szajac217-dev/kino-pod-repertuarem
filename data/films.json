@@ -1,34 +1,52 @@
 {
   "settings": {
     "horizonDays": 7,
-    "defaultBackground": "images/20250226_105743.jpg"
+    "defaultBackground": "images/20250226_105743.jpg",
+    "defaultDurationMinutes": 150
   },
   "films": [
     {
+      "slug": "jaskiniowiec",
+      "title": "Jaskiniowiec",
+      "date": "2026-08-12",
+      "time": "15:00",
+      "durationMinutes": 150,
+      "theme": "prehistoric",
+      "background": ""
+    },
+    {
+      "slug": "ainbo",
       "title": "Ainbo – Strażniczka Amazonii",
       "date": "2026-08-14",
       "time": "15:00",
+      "durationMinutes": 150,
       "theme": "jungle",
       "background": ""
     },
     {
+      "slug": "nitram",
       "title": "Nitram",
       "date": "2026-08-14",
       "time": "18:00",
+      "durationMinutes": 150,
       "theme": "red",
       "background": ""
     },
     {
+      "slug": "zmiennoksztaltni",
       "title": "Zmiennokształtni",
       "date": "2026-08-19",
       "time": "15:00",
+      "durationMinutes": 150,
       "theme": "amber",
       "background": ""
     },
     {
+      "slug": "hitpig",
       "title": "Hitpig! Świniak zawodowiec",
       "date": "2026-08-21",
       "time": "15:00",
+      "durationMinutes": 150,
       "theme": "blue",
       "background": ""
     }
