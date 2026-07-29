@@ -90,9 +90,13 @@ function preloadBackground(path) {
   });
 }
 
-function getPreviewFilm(films) {
+function getPreviewRequest() {
   const params = new URLSearchParams(window.location.search);
   const preview = params.get('preview');
+  return preview ? preview.trim() : null;
+}
+
+function getPreviewFilm(films, preview) {
   if (!preview) return null;
 
   return films
@@ -100,7 +104,7 @@ function getPreviewFilm(films) {
     .find(film => film.slug === preview || film.theme === preview || film.title.toLowerCase().includes(preview.toLowerCase())) || null;
 }
 
-async function showNeutral(data, horizonDays) {
+async function showNeutral(data, horizonDays, previewMode = false) {
   const status = document.getElementById('themeStatus');
   const nowPlaying = document.getElementById('nowPlaying');
   const defaultBg = data.settings?.defaultBackground || null;
@@ -108,7 +112,9 @@ async function showNeutral(data, horizonDays) {
 
   setCssTheme('default', exists ? defaultBg : null);
   nowPlaying.hidden = true;
-  status.textContent = `Brak filmu w ciągu ${horizonDays} dni — tło sali kinowej`;
+  status.textContent = previewMode
+    ? 'Podgląd: neutralne tło sali kinowej'
+    : `Brak filmu w ciągu ${horizonDays} dni — tło sali kinowej`;
 }
 
 async function showFilm(film, state) {
@@ -135,8 +141,14 @@ async function init() {
     const data = await response.json();
     const horizonDays = Number(data.settings?.horizonDays ?? DEFAULT_HORIZON_DAYS);
     const films = data.films || [];
+    const preview = getPreviewRequest();
 
-    const previewFilm = getPreviewFilm(films);
+    if (preview && ['default', 'neutral', 'cinema', 'sala'].includes(preview.toLowerCase())) {
+      await showNeutral(data, horizonDays, true);
+      return;
+    }
+
+    const previewFilm = getPreviewFilm(films, preview);
     if (previewFilm) {
       await showFilm(previewFilm, 'upcoming');
       return;
