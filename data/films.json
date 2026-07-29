@@ -1,11 +1,11 @@
 {
   "settings": {
     "horizonDays": 7,
-    "defaultBackground": "images/20250226_105743.jpg",
+    "defaultBackground": "images/kino zdjecie 1.png",
     "defaultBackgrounds": [
-      "images/20250226_105743.jpg",
-      "images/20250226_105813.jpg",
-      "images/20250226_105838.jpg"
+      "images/kino zdjecie 1.png",
+      "images/kino zdjecie 2.png",
+      "images/kino zdjecie 3.png"
     ],
     "backgroundRotationSeconds": 30,
     "defaultDurationMinutes": 150
