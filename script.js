@@ -104,25 +104,39 @@ function getPreviewFilm(films, preview) {
     .find(film => film.slug === preview || film.theme === preview || film.title.toLowerCase().includes(preview.toLowerCase())) || null;
 }
 
+async function getNeutralBackground(data) {
+  const configured = data.settings?.defaultBackground || null;
+  const exists = await preloadBackground(configured);
+  return exists ? configured : null;
+}
+
 async function showNeutral(data, horizonDays, previewMode = false) {
   const status = document.getElementById('themeStatus');
   const nowPlaying = document.getElementById('nowPlaying');
-  const defaultBg = data.settings?.defaultBackground || null;
-  const exists = await preloadBackground(defaultBg);
+  const defaultBg = await getNeutralBackground(data);
 
-  setCssTheme('default', exists ? defaultBg : null);
+  setCssTheme('default', defaultBg);
   nowPlaying.hidden = true;
   status.textContent = previewMode
     ? 'Podgląd: neutralne tło sali kinowej'
     : `Brak filmu w ciągu ${horizonDays} dni — tło sali kinowej`;
 }
 
-async function showFilm(film, state) {
+async function showFilm(film, state, data) {
   const status = document.getElementById('themeStatus');
   const nowPlaying = document.getElementById('nowPlaying');
   const imageExists = await preloadBackground(film.background);
 
-  setCssTheme(film.theme || 'default', imageExists ? film.background : null);
+  // Dopóki nie dodamy właściwego zdjęcia filmu, zachowujemy neutralne
+  // zdjęcie wnętrza kina. Po uzupełnieniu film.background mechanizm
+  // automatycznie przełączy także tło i kolorystykę na motyw filmu.
+  if (imageExists) {
+    setCssTheme(film.theme || 'default', film.background);
+  } else {
+    const defaultBg = await getNeutralBackground(data);
+    setCssTheme('default', defaultBg);
+  }
+
   document.getElementById('nowPlayingTitle').textContent = film.title;
   document.getElementById('nowPlayingDate').textContent = formatPolishDate(film.startsAt);
   nowPlaying.querySelector('span').textContent = state === 'active' ? 'Teraz / aktualny seans' : 'Najbliższy seans';
@@ -130,7 +144,7 @@ async function showFilm(film, state) {
 
   status.textContent = imageExists
     ? `Tło: ${film.title}`
-    : `Motyw kolorystyczny: ${film.title} — oczekuje na grafikę w repozytorium`;
+    : `Najbliższy film: ${film.title} — tło sali kinowej`;
 }
 
 async function init() {
@@ -150,7 +164,7 @@ async function init() {
 
     const previewFilm = getPreviewFilm(films, preview);
     if (previewFilm) {
-      await showFilm(previewFilm, 'upcoming');
+      await showFilm(previewFilm, 'upcoming', data);
       return;
     }
 
@@ -160,7 +174,7 @@ async function init() {
       return;
     }
 
-    await showFilm(selection.film, selection.state);
+    await showFilm(selection.film, selection.state, data);
   } catch (error) {
     console.error('Nie udało się wczytać repertuaru:', error);
     const nowPlaying = document.getElementById('nowPlaying');
