@@ -18,7 +18,7 @@
       "time": "15:00",
       "durationMinutes": 150,
       "theme": "prehistoric",
-      "background": ""
+      "background": "Jaskiniowiec.png.png"
     },
     {
       "slug": "ainbo",
@@ -27,7 +27,7 @@
       "time": "15:00",
       "durationMinutes": 150,
       "theme": "jungle",
-      "background": ""
+      "background": "Anibo.png.png"
     },
     {
       "slug": "nitram",
