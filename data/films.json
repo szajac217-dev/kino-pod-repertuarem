@@ -2,6 +2,12 @@
   "settings": {
     "horizonDays": 7,
     "defaultBackground": "images/20250226_105743.jpg",
+    "defaultBackgrounds": [
+      "images/20250226_105743.jpg",
+      "images/20250226_105813.jpg",
+      "images/20250226_105838.jpg"
+    ],
+    "backgroundRotationSeconds": 30,
     "defaultDurationMinutes": 150
   },
   "films": [
