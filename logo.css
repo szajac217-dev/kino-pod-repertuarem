@@ -1,0 +1,63 @@
+/*
+  USTAWIENIA LOGO KINA ZA ROGIEM
+  -----------------------------
+  Tu najłatwiej zmienić wygląd logo bez ruszania reszty strony.
+*/
+:root {
+  --kino-logo-size: 92px;      /* rozmiar logo na komputerze */
+  --kino-logo-size-mobile: 72px; /* rozmiar logo na telefonie */
+  --kino-logo-gap: 18px;       /* odstęp logo od kontaktu */
+  --kino-logo-opacity: 1;      /* 1 = pełna widoczność, np. .85 = delikatniejsze */
+}
+
+.footer-bar--with-logo {
+  justify-content: flex-start;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--kino-logo-gap);
+  min-width: 0;
+}
+
+.cinema-logo {
+  display: block;
+  width: var(--kino-logo-size);
+  height: var(--kino-logo-size);
+  object-fit: contain;
+  flex: 0 0 auto;
+  opacity: var(--kino-logo-opacity);
+}
+
+.footer-contact {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  min-width: 0;
+}
+
+@media (max-width: 620px) {
+  .footer-bar--with-logo {
+    align-items: stretch;
+  }
+
+  .footer-brand {
+    width: 100%;
+    align-items: center;
+  }
+
+  .cinema-logo {
+    width: var(--kino-logo-size-mobile);
+    height: var(--kino-logo-size-mobile);
+  }
+
+  .footer-contact {
+    flex-wrap: wrap;
+    gap: 4px 10px;
+  }
+
+  .footer-contact a {
+    font-size: clamp(1.45rem, 8vw, 2rem);
+  }
+}
