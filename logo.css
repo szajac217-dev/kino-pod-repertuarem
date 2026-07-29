@@ -10,6 +10,8 @@
   --kino-logo-scale-mobile: 1.52;     /* skala na telefonie */
   --kino-logo-gap: 22px;              /* odstęp logo od kontaktu */
   --kino-logo-opacity: 1;             /* 1 = pełna widoczność, np. .85 = delikatniejsze */
+  --kino-contact-offset-y: -8px;      /* ujemna wartość podnosi blok KONTAKT + numer */
+  --kino-contact-offset-y-mobile: -4px;
 }
 
 .footer-bar--with-logo {
@@ -39,6 +41,7 @@
   align-items: baseline;
   gap: 12px;
   min-width: 0;
+  transform: translateY(var(--kino-contact-offset-y));
 }
 
 @media (max-width: 620px) {
@@ -60,6 +63,7 @@
   .footer-contact {
     flex-wrap: wrap;
     gap: 4px 10px;
+    transform: translateY(var(--kino-contact-offset-y-mobile));
   }
 
   .footer-contact a {
