@@ -147,6 +147,26 @@ async function showFilm(film, state, data) {
     : `Najbliższy film: ${film.title} — tło sali kinowej`;
 }
 
+function notifyParentHeight() {
+  if (window.parent === window) return;
+  const height = Math.ceil(document.documentElement.scrollHeight);
+  window.parent.postMessage({
+    type: 'kino-pod-repertuarem-height',
+    height
+  }, '*');
+}
+
+function enableAutoHeight() {
+  notifyParentHeight();
+  window.addEventListener('load', notifyParentHeight);
+  window.addEventListener('resize', notifyParentHeight);
+
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(() => notifyParentHeight());
+    observer.observe(document.documentElement);
+  }
+}
+
 async function init() {
   try {
     const response = await fetch('data/films.json', { cache: 'no-store' });
@@ -159,29 +179,35 @@ async function init() {
 
     if (preview && ['default', 'neutral', 'cinema', 'sala'].includes(preview.toLowerCase())) {
       await showNeutral(data, horizonDays, true);
+      notifyParentHeight();
       return;
     }
 
     const previewFilm = getPreviewFilm(films, preview);
     if (previewFilm) {
       await showFilm(previewFilm, 'upcoming', data);
+      notifyParentHeight();
       return;
     }
 
     const selection = chooseFilm(films, new Date(), horizonDays);
     if (!selection.film) {
       await showNeutral(data, horizonDays);
+      notifyParentHeight();
       return;
     }
 
     await showFilm(selection.film, selection.state, data);
+    notifyParentHeight();
   } catch (error) {
     console.error('Nie udało się wczytać repertuaru:', error);
     const nowPlaying = document.getElementById('nowPlaying');
     setCssTheme('default');
     nowPlaying.hidden = true;
     document.getElementById('themeStatus').textContent = 'Tło neutralne — sala kinowa';
+    notifyParentHeight();
   }
 }
 
+enableAutoHeight();
 init();
