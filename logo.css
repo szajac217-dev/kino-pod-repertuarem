@@ -1,21 +1,31 @@
 /*
-  USTAWIENIA LOGO KINA ZA ROGIEM
-  -----------------------------
-  Tu najłatwiej zmienić wygląd logo bez ruszania reszty strony.
+  USTAWIENIA LOGOTYPÓW W STOPCE
+  ----------------------------
+  Wszystkie najważniejsze rozmiary można zmienić poniżej bez ruszania HTML.
 */
 :root {
-  --kino-logo-size: 96px;             /* rozmiar pola logo na komputerze */
-  --kino-logo-size-mobile: 78px;      /* rozmiar pola logo na telefonie */
-  --kino-logo-scale: 1.62;            /* powiększa samą zawartość SVG (ma duże przezroczyste marginesy) */
-  --kino-logo-scale-mobile: 1.52;     /* skala na telefonie */
-  --kino-logo-gap: 22px;              /* odstęp logo od kontaktu */
-  --kino-logo-opacity: 1;             /* 1 = pełna widoczność, np. .85 = delikatniejsze */
-  --kino-contact-offset-y: -8px;      /* ujemna wartość podnosi blok KONTAKT + numer */
+  --kino-logo-size: 96px;
+  --kino-logo-size-mobile: 78px;
+  --kino-logo-scale: 1.62;
+  --kino-logo-scale-mobile: 1.52;
+  --kino-logo-gap: 22px;
+  --kino-logo-opacity: 1;
+
+  --kino-contact-offset-y: -8px;
   --kino-contact-offset-y-mobile: -4px;
+
+  --partner-gap: 22px;
+  --partner-moksial4peron-width: 220px;
+  --partner-szklarska-width: 150px;
+
+  --partner-moksial4peron-width-mobile: 180px;
+  --partner-szklarska-width-mobile: 130px;
 }
 
 .footer-bar--with-logo {
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
+  gap: 34px;
 }
 
 .footer-brand {
@@ -23,6 +33,7 @@
   align-items: center;
   gap: var(--kino-logo-gap);
   min-width: 0;
+  flex: 0 1 auto;
 }
 
 .cinema-logo {
@@ -44,9 +55,49 @@
   transform: translateY(var(--kino-contact-offset-y));
 }
 
+.footer-partners {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--partner-gap);
+  min-width: 0;
+  margin-left: auto;
+}
+
+.partner-logo {
+  display: block;
+  height: auto;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+/* MOKSiAL + 4Peron pozostają jednym wspólnym obrazem — bez rozdzielania. */
+.partner-logo--moksial4peron {
+  width: var(--partner-moksial4peron-width);
+}
+
+.partner-logo--szklarska {
+  width: var(--partner-szklarska-width);
+}
+
+@media (max-width: 900px) {
+  .footer-bar--with-logo {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .footer-partners {
+    width: 100%;
+    justify-content: flex-start;
+    margin-left: 0;
+    padding-top: 4px;
+  }
+}
+
 @media (max-width: 620px) {
   .footer-bar--with-logo {
     align-items: stretch;
+    gap: 18px;
   }
 
   .footer-brand {
@@ -68,5 +119,24 @@
 
   .footer-contact a {
     font-size: clamp(1.45rem, 8vw, 2rem);
+  }
+
+  .footer-partners {
+    gap: 14px;
+    align-items: center;
+  }
+
+  .partner-logo--moksial4peron {
+    width: var(--partner-moksial4peron-width-mobile);
+  }
+
+  .partner-logo--szklarska {
+    width: var(--partner-szklarska-width-mobile);
+  }
+}
+
+@media (max-width: 420px) {
+  .footer-partners {
+    flex-wrap: wrap;
   }
 }
