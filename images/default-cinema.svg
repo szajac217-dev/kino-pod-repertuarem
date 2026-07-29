@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Stylizowane wnętrze sali kinowej">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1116"/>
+      <stop offset="1" stop-color="#020608"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5d9a8"/>
+      <stop offset="1" stop-color="#a67739"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="70%" cy="18%" r="45%">
+      <stop offset="0" stop-color="#e2a633" stop-opacity=".30"/>
+      <stop offset="1" stop-color="#e2a633" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#glow)"/>
+  <rect x="885" y="115" width="565" height="300" rx="8" fill="#181a1b" stroke="#5d4525" stroke-width="10"/>
+  <rect x="910" y="140" width="515" height="250" rx="4" fill="url(#screen)" opacity=".82"/>
+  <g opacity=".9">
+    <rect x="720" y="78" width="8" height="250" fill="#513a20"/>
+    <rect x="775" y="78" width="8" height="250" fill="#513a20"/>
+    <rect x="830" y="78" width="8" height="250" fill="#513a20"/>
+  </g>
+  <g fill="#14191d" stroke="#4f3822" stroke-width="3">
+    <path d="M560 520h120q18 0 22 18l18 76H520l18-76q4-18 22-18z"/>
+    <path d="M760 505h120q18 0 22 18l18 86H720l18-86q4-18 22-18z"/>
+    <path d="M960 495h120q18 0 22 18l18 92H920l18-92q4-18 22-18z"/>
+    <path d="M1160 505h120q18 0 22 18l18 86h-200l18-86q4-18 22-18z"/>
+    <path d="M1360 520h120q18 0 22 18l18 76h-200l18-76q4-18 22-18z"/>
+    <path d="M460 670h135q20 0 24 20l20 95H415l20-95q4-20 25-20z"/>
+    <path d="M690 650h135q20 0 24 20l20 105H645l20-105q4-20 25-20z"/>
+    <path d="M920 640h135q20 0 24 20l20 110H875l20-110q4-20 25-20z"/>
+    <path d="M1150 650h135q20 0 24 20l20 105h-224l20-105q4-20 25-20z"/>
+    <path d="M1380 670h135q20 0 24 20l20 95h-224l20-95q4-20 25-20z"/>
+  </g>
+  <g fill="#271a13" opacity=".92">
+    <circle cx="620" cy="505" r="14"/><circle cx="820" cy="490" r="14"/><circle cx="1020" cy="480" r="14"/><circle cx="1220" cy="490" r="14"/><circle cx="1420" cy="505" r="14"/>
+    <circle cx="527" cy="653" r="15"/><circle cx="757" cy="633" r="15"/><circle cx="987" cy="623" r="15"/><circle cx="1217" cy="633" r="15"/><circle cx="1447" cy="653" r="15"/>
+  </g>
+  <path d="M0 1000V690C265 735 390 825 495 1000Z" fill="#000" opacity=".62"/>
+</svg>
