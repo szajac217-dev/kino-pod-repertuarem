@@ -1,0 +1,36 @@
+{
+  "settings": {
+    "horizonDays": 7,
+    "defaultBackground": "images/default-cinema.svg"
+  },
+  "films": [
+    {
+      "title": "Ainbo – Strażniczka Amazonii",
+      "date": "2026-08-14",
+      "time": "15:00",
+      "theme": "jungle",
+      "background": ""
+    },
+    {
+      "title": "Nitram",
+      "date": "2026-08-14",
+      "time": "18:00",
+      "theme": "red",
+      "background": ""
+    },
+    {
+      "title": "Zmiennokształtni",
+      "date": "2026-08-19",
+      "time": "15:00",
+      "theme": "amber",
+      "background": ""
+    },
+    {
+      "title": "Hitpig! Świniak zawodowiec",
+      "date": "2026-08-21",
+      "time": "15:00",
+      "theme": "blue",
+      "background": ""
+    }
+  ]
+}
