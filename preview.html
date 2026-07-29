@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Podgląd motywów — Kino Za Rogiem</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #080c10; color: #fff; font-family: Arial, sans-serif; }
+    body { display: grid; grid-template-rows: auto 1fr; }
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      padding: 12px;
+      background: rgba(8,12,16,.96);
+      border-bottom: 1px solid rgba(255,255,255,.15);
+      box-shadow: 0 6px 20px rgba(0,0,0,.25);
+    }
+    .toolbar strong { margin-right: 8px; }
+    button {
+      border: 1px solid rgba(255,255,255,.18);
+      background: #151c23;
+      color: #fff;
+      border-radius: 999px;
+      padding: 9px 14px;
+      font: inherit;
+      cursor: pointer;
+    }
+    button:hover, button:focus-visible { border-color: #f0b323; outline: none; }
+    button.active { background: #f0b323; color: #111; border-color: #f0b323; font-weight: 700; }
+    iframe { width: 100%; height: calc(100vh - 62px); border: 0; background: #02080b; }
+    @media (max-width: 760px) {
+      iframe { height: calc(100vh - 112px); }
+      .toolbar { gap: 6px; }
+      button { padding: 8px 10px; font-size: .9rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="toolbar" aria-label="Wybór podglądu filmu">
+    <strong>Podgląd:</strong>
+    <button type="button" data-preview="auto" class="active">Auto</button>
+    <button type="button" data-preview="default">Sala kina</button>
+    <button type="button" data-preview="jaskiniowiec">Jaskiniowiec</button>
+    <button type="button" data-preview="ainbo">Ainbo</button>
+    <button type="button" data-preview="nitram">Nitram</button>
+    <button type="button" data-preview="zmiennoksztaltni">Zmiennokształtni</button>
+    <button type="button" data-preview="hitpig">Hitpig!</button>
+  </nav>
+
+  <iframe id="previewFrame" src="index.html" title="Podgląd modułu Kina Za Rogiem"></iframe>
+
+  <script>
+    const frame = document.getElementById('previewFrame');
+    const buttons = [...document.querySelectorAll('[data-preview]')];
+
+    function showPreview(value) {
+      frame.src = value === 'auto' ? 'index.html' : `index.html?preview=${encodeURIComponent(value)}`;
+      buttons.forEach(button => button.classList.toggle('active', button.dataset.preview === value));
+      history.replaceState(null, '', value === 'auto' ? 'preview.html' : `preview.html?show=${encodeURIComponent(value)}`);
+    }
+
+    const initial = new URLSearchParams(location.search).get('show') || 'auto';
+    showPreview(initial);
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => showPreview(button.dataset.preview));
+    });
+  </script>
+</body>
+</html>
