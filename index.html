@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kino Za Rogiem — informacje</title>
+  <meta name="description" content="Cennik, godziny seansów i informacje o Kinie Za Rogiem w Szklarskiej Porębie." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@600;700;800&family=Roboto+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="cinema-card" id="cinemaCard" data-theme="default">
+    <div class="cinema-card__bg" aria-hidden="true"></div>
+    <div class="cinema-card__shade" aria-hidden="true"></div>
+
+    <div class="content">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Kino Za Rogiem / Szklarska Poręba</p>
+          <h1>Kino Za Rogiem</h1>
+          <p class="hero__lead">Kameralna sala, dobry repertuar i bliskość widza.</p>
+        </div>
+        <div class="now-playing" id="nowPlaying" hidden>
+          <span>Najbliższy seans</span>
+          <strong id="nowPlayingTitle">—</strong>
+          <small id="nowPlayingDate">—</small>
+        </div>
+      </header>
+
+      <section class="top-grid">
+        <article class="panel prices-panel">
+          <div class="panel__heading"><span class="icon">🎟️</span><h2>Ceny biletów</h2></div>
+          <div class="price-list">
+            <div><span>Bilet ulgowy</span><strong>15 zł</strong></div>
+            <div><span>Bilet normalny</span><strong>20 zł</strong></div>
+            <div><span>Karta Mieszkańca</span><strong>10% <small>zniżki</small></strong></div>
+            <div><span>Bilety DKF</span><strong>15 zł</strong></div>
+          </div>
+          <a class="ticket-button" href="https://ekobilet.pl/moksial" target="_blank" rel="noopener noreferrer" aria-label="Kup bilety online w Ekobilet">
+            <span>Zakup biletów tutaj:</span>
+            <strong>&gt; BILETY &lt;</strong>
+          </a>
+          <a class="plain-link" href="https://moksial.pl/kino" target="_blank" rel="noopener noreferrer">moksial.pl/kino</a>
+        </article>
+
+        <article class="panel about-panel">
+          <div class="panel__heading"><span class="icon">🎬</span><h2>O naszym kinie</h2></div>
+          <p>Kino „Za Rogiem” to kameralna sala na 30 miejsc, wyposażona w wygodne fotele i profesjonalny sprzęt audiowizualny, zapewniający wysoką jakość projekcji i dźwięku.</p>
+          <a class="repertoire-link" href="https://moksial.pl/kino" target="_blank" rel="noopener noreferrer">Repertuar <strong>&gt; NOWE GODZINY &lt;</strong></a>
+        </article>
+      </section>
+
+      <section class="schedule-section">
+        <div class="section-title"><span></span><h2>Seanse i repertuar</h2><span></span></div>
+        <div class="schedule-grid">
+          <article class="schedule-item"><span class="schedule-icon">👥</span><div><h3>Seanse dla dorosłych</h3><p>każdy piątek – godz. 18:00</p><strong>bilet: 20 zł</strong></div></article>
+          <article class="schedule-item"><span class="schedule-icon">🍿</span><div><h3>Seanse sobotnie</h3><p>14:00 – seans dla dzieci (15 zł)<br>18:00 – seans dla dorosłych (20 zł)</p></div></article>
+          <article class="schedule-item"><span class="schedule-icon">🎞️</span><div><h3>Seanse na życzenie</h3><p>czwartki i soboty w godz. 15:30–18:00</p></div></article>
+          <article class="schedule-item"><span class="schedule-icon">🏫</span><div><h3>Seanse dla szkół</h3><p>wtorki w godz. 9:00–13:00</p></div></article>
+          <article class="schedule-item"><span class="schedule-icon">🎥</span><div><h3>DKF – Dyskusyjny Klub Filmowy</h3><p>dwa razy w miesiącu, w piątki o godz. 15:30</p><strong>bilet: 15 zł</strong></div></article>
+          <article class="schedule-item"><span class="schedule-icon">♥</span><div><h3>Kino Seniora</h3><p>raz w miesiącu, w czwartki</p><strong>bilet: 15 zł</strong></div></article>
+        </div>
+      </section>
+
+      <section class="bottom-grid">
+        <article class="panel compact"><div class="panel__heading"><span class="icon">🎦</span><h2>Wynajem kina</h2></div><p>Wynajem sali kinowej na wyłączność</p><strong class="big-price">250 zł</strong><small>(czas trwania: 1,5–2,5 godziny)</small></article>
+        <article class="panel compact"><div class="panel__heading"><span class="icon">🎈</span><h2>Urodziny i imprezy okolicznościowe</h2></div><p>Organizacja urodzin oraz innych wydarzeń (z wykorzystaniem sali konferencyjnej)</p><strong>cena ustalana indywidualnie, w zależności od liczby uczestników.</strong></article>
+      </section>
+
+      <footer class="footer-bar">
+        <div><span>Kontakt</span><a href="tel:+48663541189">663 541 189</a></div>
+        <p id="themeStatus">Tło neutralne — sala kinowa</p>
+      </footer>
+    </div>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
