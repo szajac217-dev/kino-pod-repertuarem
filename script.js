@@ -1,5 +1,9 @@
 const DEFAULT_HORIZON_DAYS = 7;
 const DEFAULT_DURATION_MINUTES = 150;
+const DEFAULT_ROTATION_SECONDS = 30;
+
+let neutralRotationTimer = null;
+let neutralRotationIndex = 0;
 
 const themePresets = {
   default: {
@@ -66,6 +70,31 @@ function setCssTheme(theme, backgroundPath) {
   card.dataset.theme = theme;
 }
 
+function changeBackgroundWithFade(theme, backgroundPath) {
+  const bgLayer = document.querySelector('.cinema-card__bg');
+
+  if (!bgLayer) {
+    setCssTheme(theme, backgroundPath);
+    return;
+  }
+
+  bgLayer.style.opacity = '.18';
+
+  window.setTimeout(() => {
+    setCssTheme(theme, backgroundPath);
+    requestAnimationFrame(() => {
+      bgLayer.style.opacity = '.98';
+    });
+  }, 260);
+}
+
+function stopNeutralRotation() {
+  if (neutralRotationTimer) {
+    window.clearInterval(neutralRotationTimer);
+    neutralRotationTimer = null;
+  }
+}
+
 function chooseFilm(films, now, horizonDays) {
   const prepared = films.map(prepareFilm).sort((a, b) => a.startsAt - b.startsAt);
 
@@ -104,18 +133,50 @@ function getPreviewFilm(films, preview) {
     .find(film => film.slug === preview || film.theme === preview || film.title.toLowerCase().includes(preview.toLowerCase())) || null;
 }
 
-async function getNeutralBackground(data) {
-  const configured = data.settings?.defaultBackground || null;
-  const exists = await preloadBackground(configured);
-  return exists ? configured : null;
+async function getNeutralBackgrounds(data) {
+  const configured = Array.isArray(data.settings?.defaultBackgrounds)
+    ? data.settings.defaultBackgrounds
+    : [data.settings?.defaultBackground].filter(Boolean);
+
+  const unique = [...new Set(configured.filter(Boolean))];
+  const checked = await Promise.all(
+    unique.map(async path => (await preloadBackground(path)) ? path : null)
+  );
+
+  return checked.filter(Boolean);
+}
+
+async function startNeutralRotation(data) {
+  stopNeutralRotation();
+
+  const backgrounds = await getNeutralBackgrounds(data);
+  if (!backgrounds.length) {
+    setCssTheme('default', null);
+    return;
+  }
+
+  const rotationSeconds = Math.max(
+    8,
+    Number(data.settings?.backgroundRotationSeconds || DEFAULT_ROTATION_SECONDS)
+  );
+  const rotationMs = rotationSeconds * 1000;
+
+  neutralRotationIndex = Math.floor(Date.now() / rotationMs) % backgrounds.length;
+  setCssTheme('default', backgrounds[neutralRotationIndex]);
+
+  if (backgrounds.length < 2) return;
+
+  neutralRotationTimer = window.setInterval(() => {
+    neutralRotationIndex = (neutralRotationIndex + 1) % backgrounds.length;
+    changeBackgroundWithFade('default', backgrounds[neutralRotationIndex]);
+  }, rotationMs);
 }
 
 async function showNeutral(data, horizonDays, previewMode = false) {
   const status = document.getElementById('themeStatus');
   const nowPlaying = document.getElementById('nowPlaying');
-  const defaultBg = await getNeutralBackground(data);
 
-  setCssTheme('default', defaultBg);
+  await startNeutralRotation(data);
   nowPlaying.hidden = true;
   status.textContent = previewMode
     ? 'Podgląd: neutralne tło sali kinowej'
@@ -127,14 +188,11 @@ async function showFilm(film, state, data) {
   const nowPlaying = document.getElementById('nowPlaying');
   const imageExists = await preloadBackground(film.background);
 
-  // Dopóki nie dodamy właściwego zdjęcia filmu, zachowujemy neutralne
-  // zdjęcie wnętrza kina. Po uzupełnieniu film.background mechanizm
-  // automatycznie przełączy także tło i kolorystykę na motyw filmu.
   if (imageExists) {
+    stopNeutralRotation();
     setCssTheme(film.theme || 'default', film.background);
   } else {
-    const defaultBg = await getNeutralBackground(data);
-    setCssTheme('default', defaultBg);
+    await startNeutralRotation(data);
   }
 
   document.getElementById('nowPlayingTitle').textContent = film.title;
@@ -144,7 +202,7 @@ async function showFilm(film, state, data) {
 
   status.textContent = imageExists
     ? `Tło: ${film.title}`
-    : `Najbliższy film: ${film.title} — tło sali kinowej`;
+    : `Najbliższy film: ${film.title} — rotacja zdjęć sali kinowej`;
 }
 
 function notifyParentHeight() {
@@ -201,6 +259,7 @@ async function init() {
     notifyParentHeight();
   } catch (error) {
     console.error('Nie udało się wczytać repertuaru:', error);
+    stopNeutralRotation();
     const nowPlaying = document.getElementById('nowPlaying');
     setCssTheme('default');
     nowPlaying.hidden = true;
