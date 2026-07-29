@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@600;700;800&family=Roboto+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="logo.css" />
 </head>
 <body>
   <main class="cinema-card" id="cinemaCard" data-theme="default">
@@ -69,8 +70,19 @@
         <article class="panel compact"><div class="panel__heading"><span class="icon">🎈</span><h2>Urodziny i imprezy okolicznościowe</h2></div><p>Organizacja urodzin oraz innych wydarzeń (z wykorzystaniem sali konferencyjnej)</p><strong>cena ustalana indywidualnie, w zależności od liczby uczestników.</strong></article>
       </section>
 
-      <footer class="footer-bar">
-        <div><span>Kontakt</span><a href="tel:+48663541189">663 541 189</a></div>
+      <footer class="footer-bar footer-bar--with-logo">
+        <div class="footer-brand">
+          <img
+            class="cinema-logo"
+            src="images/logo-KZR-v1-prawe.svg"
+            alt="Kino Za Rogiem"
+            onerror="this.hidden=true"
+          />
+          <div class="footer-contact">
+            <span>Kontakt</span>
+            <a href="tel:+48663541189">663 541 189</a>
+          </div>
+        </div>
         <p id="themeStatus" hidden></p>
       </footer>
     </div>
